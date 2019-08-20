@@ -1,15 +1,16 @@
 import numpy as np
 import random
 import math
-def __abs_lmod(mod) :
+def abs_lmod(mod) :
     return 2.0 * random.random() * mod - mod
+#激化函数
 def ReLu(z):
     return z if z > 0.0 else 0.0
 class Matrix(object):
     def __init__(self, row, column):
         self.Cols = column
         self.Rows = row
-        self.Vals = np.zeros((column, row))
+        self.Vals = np.zeros((row, column))
         return
     @staticmethod
     def fromArray(raw : list):
@@ -18,7 +19,7 @@ class Matrix(object):
             self.Vals[i][0] = raw[i]
         return self
     def dot(self, matrx):
-        rst = Matrix(0, 0)
+        rst = Matrix(self.Rows, matrx.Cols)
         if self.Cols == matrx.Rows:
             for i in range(self.Rows):
                 for j in range(matrx.Cols):
@@ -30,7 +31,7 @@ class Matrix(object):
     def randomize(self):
         for i in range(self.Rows):
             for j in  range(self.Cols):
-                self.Vals[i][j] = __abs_lmod(1.0)
+                self.Vals[i][j] = abs_lmod(1.0)
         return
     def toArray(self):
         rst = [1.0] * (self.Cols * self.Rows)
@@ -55,7 +56,7 @@ class Matrix(object):
              for j in range(self.Cols):
                  if random.random() < rate:
                      #replace the randomGaussian() for lacking this function
-                     self.Vals[i][j] += __abs_lmod(1.0)
+                     self.Vals[i][j] += abs_lmod(1.0)
         return
     def crossover(self, matrx):
         rst = Matrix(self.Rows, self.Cols)
@@ -74,5 +75,3 @@ class Matrix(object):
             for j in range(self.Cols):
                 rst.Vals[i][j] = self.Vals[i][j] 
         return rst
-#########################################################3
-mat = Matrix(2, 2)

@@ -1,9 +1,9 @@
 import Matrix as Mt
 class NeuralNet(object):
     def __init__(self, input_size, hidden_size, output_size, hidden_layer_num):
-        self.iNodes = input_size
-        self.hNodes = hidden_size
-        self.hLayers = hidden_layer_num
+        self.iNodes = input_size#输入层节点数
+        self.hNodes = hidden_size#每个隐藏层的节点数
+        self.hLayers = hidden_layer_num#隐藏层数
         self.oNodes = output_size
         self.weights = []
         self.weights.append(Mt.Matrix(self.hNodes, self.iNodes+1))
@@ -13,10 +13,12 @@ class NeuralNet(object):
         for i in range(len(self.weights)):
             self.weights[i].randomize()
         return
+    #改变权重
     def mutate(self, mutate_rate):
         for i in range(len(self.weights)):
             self.weights[i].mutate(mutate_rate)
         return
+    #获得输出层节点
     def output(self, inputs : list):
         in_mat = Mt.Matrix.fromArray(inputs)
         cur_bias = in_mat.addBias()
@@ -27,6 +29,7 @@ class NeuralNet(object):
         output_ip = self.weights[-1].dot(cur_bias)
         output = output_ip.activate()
         return output.toArray()
+    #杂交, 改变权重
     def crossover(self, partner):
         rst = NeuralNet(iNodes,hNodes,oNodes,hLayers)
         for i in range(len(self.weights)):
