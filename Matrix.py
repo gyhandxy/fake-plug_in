@@ -3,7 +3,7 @@ import random
 import math
 def abs_lmod(mod) :
     return 2.0 * random.random() * mod - mod
-#激化函数
+#激活函数
 def ReLu(z):
     return z if z > 0.0 else 0.0
 class Matrix(object):
