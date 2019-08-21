@@ -13,12 +13,14 @@ class NeuralNet(object):
         for i in range(len(self.weights)):
             self.weights[i].randomize()
         return
-    #改变权重
+    #改变自身权重
     def mutate(self, mutate_rate):
         for i in range(len(self.weights)):
             self.weights[i].mutate(mutate_rate)
         return
     #获得输出层节点
+    #inputs : 输入节点, 限定 : len(inputs) == self.iNodes
+    #return : 返回对应的输出节点的值
     def output(self, inputs : list):
         in_mat = Mt.Matrix.fromArray(inputs)
         cur_bias = in_mat.addBias()
@@ -30,6 +32,7 @@ class NeuralNet(object):
         output = output_ip.activate()
         return output.toArray()
     #杂交, 改变权重
+    #return : 返回杂交的子NeuralNet
     def crossover(self, partner):
         rst = NeuralNet(self.iNodes, self.hNodes, self.oNodes, self.hLayers)
         for i in range(len(self.weights)):
@@ -40,7 +43,7 @@ class NeuralNet(object):
         for i in range(len(self.weights)):
             rst.weights[i] = self.weights[i]
         return rst
-    #set weights of network
+    #从外部载入网络的权重
     def load(self, weight : list):
         for i in range(len(self.weights)):
             self.weights[i] = weight[i]

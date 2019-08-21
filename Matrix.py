@@ -10,8 +10,9 @@ class Matrix(object):
     def __init__(self, row, column):
         self.Cols = column
         self.Rows = row
-        self.Vals = np.zeros((row, column))
+        self.Vals = np.zeros((row, column)) #矩阵值
         return
+    #从列表获得一个单列矩阵
     @staticmethod
     def fromArray(raw : list):
         self = Matrix(len(raw), 1)
@@ -28,6 +29,7 @@ class Matrix(object):
                         sum += self.Vals[i][k] * matrx.Vals[k][j]
                     rst.Vals[i][j] = sum
         return rst
+    #随机化矩阵值
     def randomize(self):
         for i in range(self.Rows):
             for j in  range(self.Cols):
@@ -58,6 +60,8 @@ class Matrix(object):
                      #replace the randomGaussian() for lacking this function
                      self.Vals[i][j] += abs_lmod(1.0)
         return
+    #矩阵杂交
+    #限定 : shape(matrx.Vals) == shape(self.Vals)
     def crossover(self, matrx):
         rst = Matrix(self.Rows, self.Cols)
         randC = math.floor(random.random() * self.Cols)
@@ -90,3 +94,4 @@ class Matrix(object):
             str += "{},\t".format(self.Vals[self.Rows - 1][j])
         str += "|\n"
         return str
+############################################################
