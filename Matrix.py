@@ -47,12 +47,12 @@ class Matrix(object):
         return rst
     def activate(self):
         rst = Matrix(self.Rows, self.Cols)
-        for i in range(self,Rows):
+        for i in range(self.Rows):
              for j in range(self.Cols):
                  rst.Vals[i][j] = ReLu(self.Vals[i][j])
         return rst
     def mutate(self, rate):
-        for i in range(self,Rows):
+        for i in range(self.Rows):
              for j in range(self.Cols):
                  if random.random() < rate:
                      #replace the randomGaussian() for lacking this function
@@ -62,12 +62,12 @@ class Matrix(object):
         rst = Matrix(self.Rows, self.Cols)
         randC = math.floor(random.random() * self.Cols)
         randR = math.floor(random.random() * self.Rows)
-        for i in range(self,Rows):
+        for i in range(self.Rows):
             for j in range(self.Cols):
                 if i < randR or (i == randR and j <= randC) :
                     rst.Vals[i][j] = self.Vals[i][j]
                 else:
-                    rst.Vals[i][j] = matrx.Valicense[i][j]
+                    rst.Vals[i][j] = matrx.Vals[i][j]
         return rst
     def clone(self):
         rst = Matrix(self.Rows, self.Cols)
@@ -75,3 +75,18 @@ class Matrix(object):
             for j in range(self.Cols):
                 rst.Vals[i][j] = self.Vals[i][j] 
         return rst
+    def setVals(self, vals : list):
+        for i in range(self.Rows):
+            for j in range(self.Cols):
+                self.Vals[i][j] = vals[i * self.Cols + j]
+        return
+    def __str__(self):
+        str = "|"
+        for i in range(self.Rows - 1):
+            for j in range(self.Cols):
+                str += "{},\t".format(self.Vals[i][j])
+            str += "|\n|"
+        for j in range(self.Cols):
+            str += "{},\t".format(self.Vals[self.Rows - 1][j])
+        str += "|\n"
+        return str

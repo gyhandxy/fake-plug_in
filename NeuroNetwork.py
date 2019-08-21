@@ -23,7 +23,7 @@ class NeuralNet(object):
         in_mat = Mt.Matrix.fromArray(inputs)
         cur_bias = in_mat.addBias()
         for i in range(self.hLayers):
-            hidden_ip = self.weight[i].dot(cur_bias)
+            hidden_ip = self.weights[i].dot(cur_bias)
             hidden_op = hidden_ip.activate()
             cur_bias = hidden_op.addBias()
         output_ip = self.weights[-1].dot(cur_bias)
@@ -31,12 +31,12 @@ class NeuralNet(object):
         return output.toArray()
     #杂交, 改变权重
     def crossover(self, partner):
-        rst = NeuralNet(iNodes,hNodes,oNodes,hLayers)
+        rst = NeuralNet(self.iNodes, self.hNodes, self.oNodes, self.hLayers)
         for i in range(len(self.weights)):
             rst.weights[i] = self.weights[i].crossover(partner.weights[i])
         return rst
     def clone(self):
-        rst = NeuralNet(iNodes,hNodes,oNodes,hLayers)
+        rst = NeuralNet(self.iNodes, self.hNodes, self.oNodes, self.hLayers)
         for i in range(len(self.weights)):
             rst.weights[i] = self.weights[i]
         return rst
