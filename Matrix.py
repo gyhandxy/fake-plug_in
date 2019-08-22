@@ -12,6 +12,15 @@ class Matrix(object):
         self.Rows = row
         self.Vals = np.zeros((row, column)) #矩阵值
         return
+    #由二维数组构建
+    def __init__(self, raw : np.ndarray):
+        self.Rows = len(raw)
+        self.Cols = len(raw[0])
+        self.Vals = np.zeros((self.Rows, self.Cols))
+        for i in range(self.Rows):
+            for j in  range(self.Cols):
+                self.Vals[i][j] = raw[i][j]
+        return
     #从列表获得一个单列矩阵
     @staticmethod
     def fromArray(raw : list):
