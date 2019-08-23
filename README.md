@@ -1,4 +1,4 @@
-# Bug fix
+# fake_plug_in
 要修改Matrix.py中
 “def __init__(self, raw : np.ndarray)"
 改为
